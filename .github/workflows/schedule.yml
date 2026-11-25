@@ -2,8 +2,8 @@ name: Discord Hourly Message
 
 on:
   schedule:
-    # 每 3 個鐘執行一次（例如 00:00, 03:00, 06:00, 09:00...）
-    - cron: '0 */3 * * *'
+    # 每 2 個鐘的第 8 分執行一次（避開整點延遲）
+    - cron: '8 */2 * * *'
   workflow_dispatch:
 
 jobs:
