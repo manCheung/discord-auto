@@ -2,7 +2,7 @@ name: Discord Hourly Message
 
 on:
   schedule:
-    # 每 2 個鐘的第 8 分執行一次（避開整點延遲）
+    # 每 2 個鐘的第 8 分執行一次（UTC 時間）
     - cron: '8 */2 * * *'
   workflow_dispatch:
 
@@ -15,5 +15,5 @@ jobs:
           WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK }}
         run: |
           curl -H "Content-Type: application/json" \
-               -d '{"content": "阿初今日全日都冇出聲，大家唔會覺得好奇怪？"}' \
-               "$WEBHOOK_URL"
+          -d '{"content": "阿初今日全日都冇出聲，大家唔會覺得好奇怪？"}' \
+          "$WEBHOOK_URL"
