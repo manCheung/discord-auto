@@ -1,19 +1,25 @@
-name: Discord Hourly Message
+name: Auto Send Discord Joke
 
 on:
-  schedule:
-    # 每 2 個鐘的第 8 分執行一次（UTC 時間）
-    - cron: '8 */1 * * *'
+  # 允許在 GitHub 網頁手動點擊測試
   workflow_dispatch:
+  # 定時排程（使用 UTC 時間：UTC 04:00 = 香港時間 12:00）
+  schedule:
+    - cron: '0 4 * * *'
 
 jobs:
-  send-message:
+  send-joke:
     runs-on: ubuntu-latest
     steps:
-      - name: Send Discord Webhook
+      - name: 取得儲存庫檔案
+        uses: actions/checkout@v4
+
+      - name: 設定 Python 環境
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 執行發送笑話腳本
         env:
-          WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK }}
-        run: |
-          curl -H "Content-Type: application/json" \
-          -d '{"content": "阿初今日全日都冇出聲，大家唔會覺得好奇怪？"}' \
-          "$WEBHOOK_URL"
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: python send_joke.py
