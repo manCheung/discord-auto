@@ -3,7 +3,7 @@ name: Auto Send Discord Joke
 on:
   # 允許在 GitHub 網頁手動點擊測試
   workflow_dispatch:
-  # 定時排程（使用 UTC 時間：UTC 04:00 = 香港時間 12:00）
+  # 定時排程（使用 UTC 時間：UTC 04:00 = 香港時間中午 12:00）
   schedule:
     - cron: '0 4 * * *'
 
@@ -21,5 +21,5 @@ jobs:
 
       - name: 執行發送笑話腳本
         env:
-          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         run: python send_joke.py
